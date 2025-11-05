@@ -1,0 +1,433 @@
+/* ===== 1. SISTEMA DE DESIGN (DESIGN SYSTEM) ===== */
+
+/* 1.1. Variáveis Globais */
+:root {
+    /* Paleta de Cores (8 cores) */
+    --cor-primaria: #005A8D;       /* Azul Escuro (para títulos, links) */
+    --cor-secundaria: #00A8E8;    /* Azul Claro (para botões, destaques) */
+    --cor-sucesso: #4CAF50;        /* Verde (para validação, mensagens de sucesso) */
+    --cor-erro: #F44336;          /* Vermelho (para erros, alertas) */
+    --cor-fundo: #F4F7F6;          /* Cinza bem claro (fundo da página) */
+    --cor-texto: #333333;          /* Cinza Escuro (texto principal) */
+    --cor-neutra-clara: #FFFFFF;   /* Branco (para cards, fundos de seção) */
+    --cor-neutra-escura: #DDDDDD;  /* Cinza Médio (para bordas, divisórias) */
+
+    /* Tipografia Hierárquica (5+ tamanhos) */
+    --fonte-principal: 'Arial', sans-serif;
+    --tamanho-fonte-xxg: 3rem;   /* 48px */
+    --tamanho-fonte-xg: 2rem;    /* 32px */
+    --tamanho-fonte-g: 1.5rem;   /* 24px */
+    --tamanho-fonte-m: 1rem;     /* 16px */
+    --tamanho-fonte-p: 0.875rem; /* 14px */
+    --tamanho-fonte-xp: 0.75rem; /* 12px */
+
+    /* Sistema de Espaçamento Modular */
+    --espaco-1: 8px;
+    --espaco-2: 16px;
+    --espaco-3: 24px;
+    --espaco-4: 32px;
+    --espaco-5: 48px;
+    --espaco-6: 64px;
+}
+
+/* 1.2. Reset e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--cor-secundaria);
+}
+
+h1, h2, h3 {
+    color: var(--cor-primaria);
+    margin-bottom: var(--espaco-2);
+}
+
+h1 { font-size: var(--tamanho-fonte-xxg); }
+h2 { font-size: var(--tamanho-fonte-xg); }
+h3 { font-size: var(--tamanho-fonte-g); }
+
+/* ===== 2. LEIAUTES (GRID E FLEXBOX) ===== */
+
+/* 2.1. Estrutura Principal com CSS Grid */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr; /* Padrão mobile-first */
+    gap: var(--espaco-4);
+    padding: var(--espaco-3) 0;
+}
+
+header, footer {
+    background-color: var(--cor-neutra-clara);
+    padding: var(--espaco-3);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: var(--tamanho-fonte-g);
+    margin: 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: var(--espaco-5);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-6);
+}
+
+section {
+    background-color: var(--cor-neutra-clara);
+    padding: var(--espaco-4);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 2.2. Sistema de Grid de 12 Colunas (para seções internas) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--espaco-3);
+}
+
+/* ===== 3. NAVEGAÇÃO SOFISTICADA ===== */
+
+/* 3.1. Menu Principal (Desktop) */
+.nav-principal ul {
+    list-style: none;
+    display: flex;
+    gap: var(--espaco-3);
+}
+
+.nav-principal a {
+    font-size: var(--tamanho-fonte-m);
+    font-weight: bold;
+    padding: var(--espaco-1) var(--espaco-2);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-principal a:hover {
+    background-color: var(--cor-fundo);
+    color: var(--cor-primaria);
+}
+
+/* 3.2. Menu Hambúrguer (Mobile) - Escondido por padrão */
+.menu-hamburguer {
+    display: none; /* Aparece apenas em telas menores */
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.menu-hamburguer .linha {
+    width: 25px;
+    height: 3px;
+    background-color: var(--cor-primaria);
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+/* ===== 4. COMPONENTES DE INTERFACE ===== */
+
+/* 4.1. Botões com Estados */
+.btn {
+    display: inline-block;
+    padding: var(--espaco-2) var(--espaco-4);
+    background-color: var(--cor-secundaria);
+    color: var(--cor-neutra-clara);
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--cor-primaria);
+    transform: translateY(-2px);
+    color: var(--cor-neutra-clara);
+}
+
+.btn:focus {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 2px;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-secundario {
+    background-color: var(--cor-neutra-escura);
+    color: var(--cor-texto);
+}
+
+.btn-secundario:hover {
+    background-color: #b0b0b0;
+}
+
+/* 4.2. Cards Responsivos para Projetos */
+.container-cards {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile-first: uma coluna */
+    gap: var(--espaco-4);
+}
+
+.card {
+    background-color: var(--cor-neutra-clara);
+    border: 1px solid var(--cor-neutra-escura);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-imagem {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-conteudo {
+    padding: var(--espaco-3);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-conteudo h3 {
+    margin-top: 0;
+}
+
+.card-conteudo .btn {
+    margin-top: auto; /* Alinha o botão na base do card */
+}
+
+/* 4.3. Badges e Tags */
+.container-badges {
+    display: flex;
+    gap: var(--espaco-1);
+    margin-bottom: var(--espaco-2);
+}
+
+.badge {
+    background-color: var(--cor-primaria);
+    color: var(--cor-neutra-clara);
+    padding: var(--espaco-1);
+    border-radius: 4px;
+    font-size: var(--tamanho-fonte-xp);
+    font-weight: bold;
+}
+
+.badge-voluntariado {
+    background-color: #ffa726; /* Laranja */
+}
+
+.badge-doacao {
+    background-color: var(--cor-sucesso);
+}
+
+/* 4.4. Formulários Estilizados */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-3);
+}
+
+.formulario fieldset {
+    border: 1px solid var(--cor-neutra-escura);
+    border-radius: 8px;
+    padding: var(--espaco-3);
+}
+
+.formulario legend {
+    font-size: var(--tamanho-fonte-g);
+    font-weight: bold;
+    color: var(--cor-primaria);
+    padding: 0 var(--espaco-1);
+}
+
+.formulario label {
+    font-weight: bold;
+    margin-bottom: var(--espaco-1);
+    display: block;
+}
+
+.formulario input,
+.formulario select {
+    width: 100%;
+    padding: var(--espaco-2);
+    border: 1px solid var(--cor-neutra-escura);
+    border-radius: 4px;
+    font-size: var(--tamanho-fonte-m);
+}
+
+.formulario input:focus,
+.formulario select:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 5px rgba(0, 90, 141, 0.5);
+}
+
+/* Validação Visual */
+.formulario input:invalid:not(:placeholder-shown) {
+    border-color: var(--cor-erro);
+}
+
+.formulario input:valid:not(:placeholder-shown) {
+    border-color: var(--cor-sucesso);
+}
+
+.botoes-form {
+    display: flex;
+    gap: var(--espaco-2);
+}
+
+/* 4.5. Componente de Feedback (Alert) */
+.alert {
+    padding: var(--espaco-3);
+    border-radius: 8px;
+    margin-bottom: var(--espaco-3);
+    border: 1px solid;
+}
+
+.alert-info {
+    background-color: #e7f7ff;
+    border-color: var(--cor-secundaria);
+    color: var(--cor-primaria);
+}
+
+
+/* ===== 5. RESPONSIVIDADE (BREAKPOINTS) ===== */
+
+/* Breakpoint 1: Tablets pequenos (min-width: 480px) */
+@media (min-width: 480px) {
+    .container-cards {
+        /* Ainda uma coluna, mas com mais espaço */
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* Breakpoint 2: Tablets (min-width: 768px) */
+@media (min-width: 768px) {
+    h1 { font-size: 2.5rem; }
+
+    .container-cards {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas de cards */
+    }
+
+    /* Esconde o menu hambúrguer e mostra o menu principal */
+    .menu-hamburguer {
+        display: none;
+    }
+    .nav-principal {
+        display: flex;
+    }
+}
+
+/* Breakpoint 3: Desktops pequenos (min-width: 992px) */
+@media (min-width: 992px) {
+    .container-cards {
+        grid-template-columns: repeat(3, 1fr); /* Três colunas de cards */
+    }
+}
+
+/* Breakpoint 4: Desktops grandes (min-width: 1200px) */
+@media (min-width: 1200px) {
+    .container {
+        gap: var(--espaco-6);
+    }
+}
+
+/* Breakpoint 5: Mobile (max-width: 767px) - Estilos específicos para o menu */
+@media (max-width: 767px) {
+    header h1 {
+        font-size: var(--tamanho-fonte-g);
+    }
+    .menu-hamburguer {
+        display: block; /* Mostra o botão hambúrguer */
+    }
+
+    .nav-principal {
+        display: none; /* Esconde a navegação principal */
+        position: absolute;
+        top: 80px; /* Altura do header */
+        left: 0;
+        width: 100%;
+        background-color: var(--cor-neutra-clara);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-principal.ativo {
+        display: block; /* Mostra o menu quando ativo */
+    }
+
+    .nav-principal ul {
+        flex-direction: column;
+        align-items: center;
+        padding: var(--espaco-3) 0;
+    }
+}
+/* ===== 6. ESTILOS DE FEEDBACK (Entrega III) ===== */
+
+/* Estilo para a caixa de mensagens do formulário */
+#form-messages {
+    padding: var(--espaco-3);
+    border-radius: 8px;
+    margin-bottom: var(--espaco-3);
+    border: 1px solid;
+    display: none; /* Começa escondido */
+}
+
+/* Classe para mensagens de ERRO */
+.alert-danger {
+    background-color: #fdecea;
+    border-color: var(--cor-erro);
+    color: #a94442;
+    display: block; /* Mostra a caixa */
+}
+
+/* Classe para mensagens de SUCESSO */
+.alert-success {
+    background-color: #dff0d8;
+    border-color: var(--cor-sucesso);
+    color: #3c763d;
+    display: block; /* Mostra a caixa */
+}
